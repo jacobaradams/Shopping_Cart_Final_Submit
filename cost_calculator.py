@@ -67,17 +67,65 @@ class ShoppingCart:
                 print('    ', end = '')
                 this_item.print_item_cost()
                 print(f'        Total: {self.get_cost_of_cart()}')
+    def print_descriptions(self):
+        print(f'{self.customer_name}\'s Shopping Cart - {self.current_date}')
+        print(f'      Item Descriptions')
+        for key in self.cart_items.keys():
+            print(f'{key}: {self.cart_items[key][2]}')
+
+def print_menu():
+    user_input = ShoppingCart(input('Please enter your name:'), input('And the date:'))
+    def inside_print():
+        print('''
+                     MENU
+            a - Add item to cart
+            r - Remove item from cart
+            c - Change item quantity
+            i - Output items' descriptions
+            o - Output shopping cart
+            q - Quit'''
+               )
+        user_selection = input('How would you like to proceed?')
+        if user_selection == 'a':
+            user_input.add_item()
+            inside_print()
+        elif user_selection == 'r':
+            user_input.remove_item()
+            inside_print()
+        elif user_selection == 'c':
+            user_input.modify_item()
+            inside_print()
+        elif user_selection == 'i':
+            user_input.modify_item()
+            inside_print()
+        elif user_selection == 'o':
+            output_sel = input('Enter \'Total\' for your cart total or \'Desc\' for your item descriptions')
+            if output_sel == 'Total':
+                user_input.print_total()
+            elif output_sel == 'Desc':
+                user_input.print_descriptions()
+            inside_print()
+        elif user_selection == 'q':
+            return
+        else:
+            print('That is not a valid option. Please try again.')
+            user_selection = input('How would you like to proceed?')
+            return user_selection
+    inside_print()
 
 
 
 
-MyCart = ShoppingCart('Jacob', 'Today')
-MyCart.add_item()
-MyCart.add_item()
-print(MyCart.get_num_items_in_cart())
-print(MyCart.get_cost_of_cart())
-MyCart.print_total()
-print(MyCart.cart_items)
+
+print_menu()
+#MyCart = ShoppingCart('Jacob', 'Today')
+#MyCart.add_item()
+#MyCart.add_item()
+#print(MyCart.get_num_items_in_cart())
+#print(MyCart.get_cost_of_cart())
+#MyCart.print_total()
+#MyCart.print_descriptions()
+#print(MyCart.cart_items)
 
 
 
