@@ -9,12 +9,13 @@ class ItemToPurchase:
         print(f'{self.item_name} {self.item_quantity} @ ${self.item_price:.2f} = ${self.item_total_cost:.2f}')
         return
 
-Item1 = ItemToPurchase('chocolate chips', 3, 1)
-Item2 = ItemToPurchase('bottled water', 1, 10)
-print('         TOTAL COST:')
-Item1.print_item_cost()
-Item2.print_item_cost()
-print(f'        Total: ${(Item1.item_total_cost + Item2.item_total_cost):.2f}')
+#The following is the code I used to test the ItemToPurchase class:
+#Item1 = ItemToPurchase('chocolate chips', 3, 1)
+#Item2 = ItemToPurchase('bottled water', 1, 10)
+#print('         TOTAL COST:')
+#Item1.print_item_cost()
+#Item2.print_item_cost()
+#print(f'        Total: ${(Item1.item_total_cost + Item2.item_total_cost):.2f}')
 
 class ShoppingCart:
     def __init__(self, customer_name = 'none', current_date = 'January 1, 2020'):
@@ -22,18 +23,20 @@ class ShoppingCart:
         self.current_date = str(current_date)
     cart_items = {}
     def add_item(self):
-        item_to_add = ItemToPurchase(input(), input(), input())
-        self.item_description = input()
+        print('ADD ITEM TO CART')
+        item_to_add = ItemToPurchase(input('Enter the item name:'), input('Enter the item price:'), input('Enter the item quantity:'))
+        self.item_description = input('Enter the item description:')
         self.cart_items[item_to_add.item_name] = [item_to_add.item_price, item_to_add.item_quantity, self.item_description]
 
     def remove_item(self):
-        item_to_remove = input()
+        print('REMOVE ITEM FROM CART')
+        item_to_remove = input('Enter the name of the item to remove: ')
         if item_to_remove in self.cart_items.keys():
             self.cart_items.pop(item_to_remove)
         else:
             print('Item not found in cart. Nothing removed.')
     def modify_item(self):
-        item_to_modify = ItemToPurchase(input(), input(), input())
+        item_to_modify = ItemToPurchase(input('Item name (current):'), input('Item price (current or new):'), input('Item quantity (current or new):'))
         if item_to_modify.item_name in self.cart_items.keys():
             name_change = input('Change name? Y or N:')
             if name_change == 'Y':
@@ -43,7 +46,8 @@ class ShoppingCart:
                 self.cart_items[item_to_modify.item_name] = [item_to_modify.item_price, item_to_modify.item_quantity]
             modify_description = input('Add description? Y or N:')
             if modify_description == 'Y':
-                self.cart_items[item_to_modify.item_name][2] = input()
+                self.item_description = input('Description:')
+                self.cart_items[item_to_modify.item_name] = [item_to_modify.item_price, item_to_modify.item_quantity, self.item_description]
         else:
             print('Item not found in cart. Nothing modified.')
     def get_num_items_in_cart(self):
@@ -96,7 +100,7 @@ def print_menu():
             user_input.modify_item()
             inside_print()
         elif user_selection == 'i':
-            user_input.modify_item()
+            user_input.print_descriptions()
             inside_print()
         elif user_selection == 'o':
             output_sel = input('Enter \'Total\' for your cart total or \'Desc\' for your item descriptions')
@@ -113,11 +117,24 @@ def print_menu():
             return user_selection
     inside_print()
 
+my_shopping_cart = ShoppingCart(input('Enter customer\'s name:'), input('Enter today\'s date:'))
+print(f'Customer name: {my_shopping_cart.customer_name}')
+print(f'Today\'s date: {my_shopping_cart.current_date}')
+my_shopping_cart.add_item()
+my_shopping_cart.add_item()
+my_shopping_cart.remove_item()
+print(f'CHANGE ITEM QUANTITY')
+my_shopping_cart.modify_item()
+print(my_shopping_cart.get_num_items_in_cart())
+print(my_shopping_cart.get_cost_of_cart())
+my_shopping_cart.print_total()
+my_shopping_cart.print_descriptions()
 
 
 
 
-print_menu()
+#The following is all code I used to test different stages of my program:
+#print_menu()
 #MyCart = ShoppingCart('Jacob', 'Today')
 #MyCart.add_item()
 #MyCart.add_item()
